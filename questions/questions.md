@@ -87,3 +87,29 @@
 
 30. What three core files does an AI assistant typically generate when creating a basic web application with HTML, CSS, and JavaScript?
 30. index.html (the main HTML structure), style.css (the styling), and script.js (the JavaScript functionality). The assistant may also update or create a readme file with documentation.
+
+31. What is zero-shot prompting and how does it differ from standard prompting?
+31. Zero-shot prompting is a direct task request without any examples, where the model relies entirely on its pre-training knowledge. While all zero-shot prompts are standard prompts, not all standard prompts are truly zero-shot. Zero-shot prompts are typically more verbose and specific, breaking down exactly what is needed step-by-step, whereas standard prompts are more basic, often just one question or one line with a very indirect ask of a task.
+
+32. When is it recommended to start a new chat session with an AI model?
+32. It's recommended to start a new chat when: 1) the chat becomes really long (even if it's good, summarize it first and move to a new one), 2) when things have gone significantly wrong or "wonky", 3) when stuck in a bug loop where the model keeps claiming to fix issues but the bug persists. Before starting over, you can ask the model to summarize the conversation, tone, and provide examples to carry context into the new chat.
+
+33. What factors affect the quality of outputs from zero-shot prompts?
+33. The quality of zero-shot prompt outputs varies based on task complexity and specificity. The more complex the task, the harder it will be for the model to give a good response. However, the more specific you can be with your zero-shot prompt, the better the output will be. Breaking down tasks to be as specific and as small as possible leads to better results.
+
+34. When are zero-shot prompts most effective to use?
+34. Zero-shot prompts work really well for simple, common tasks. They are also good when you don't need a very specific format coming out of the prompt - for instance, when it doesn't matter if the response is a sentence, paragraph, or chunk of code. They're ideal for tasks where the model's pre-training knowledge (trained on terabytes of data and billions of parameters) is sufficient to understand the request.
+
+35. In the following zero-shot prompt example, what makes it more effective than a basic standard prompt?
+
+Create a Prompt Library application in HTML, CSS, and JavaScript.
+Create an HTML page with a form containing fields for the prompt title and content.
+Add a save prompt button that saves to local storage.
+Display saved prompts in cards.
+Each prompt card should show the title, a content preview of a few words, and a delete button.
+Deleting should remove a prompt from local storage and update the display.
+Includes no other features.
+Do not add other dependencies.
+Do not add any other features than I had listed.
+
+35. This prompt is more effective because it provides high specificity with low complexity. It breaks down exactly what features are needed step-by-step, explicitly states what NOT to include (no other features, no other dependencies), and focuses on only the essential functionality (save and delete). This specificity helps prevent the model from adding unwanted features like export buttons or search functionality that weren't requested.
