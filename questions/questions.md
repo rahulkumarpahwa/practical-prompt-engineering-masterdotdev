@@ -42,3 +42,18 @@
 
 15. Why should you avoid adding entire codebases or large folders to an LLM's context when seeking coding assistance?
 15. Adding entire codebases or large folders fills up the context window with unnecessary information, similar to trying to look at every file in a codebase at once, which is overwhelming. This can lead to poor results because the model has too much context to process. Instead, you should add only the minimal amount of context needed, such as specific relevant files like a test file and related frontend file, to get good outputs.
+
+16. What is a standard prompt in the context of working with AI language models?
+16. A standard prompt is a direct question or instruction to an AI. It is the simplest form of prompting where you ask the AI what you want to know. It serves as the foundation that all other prompting techniques build upon.
+
+17. How does the quality of a question relate to the quality of an AI's answer?
+17. The quality of the question directly relates to the quality of the answer. Similar to asking humans for help, providing context and specific details will result in much better responses than vague or unclear questions.
+
+18. How should questions be formatted when using AI language models, and how does this differ from search engines like Google?
+18. When using AI language models, you should ask full questions in complete sentences, similar to how you would ask a neighbor. This differs from search engines like Google where people typically use summarized keywords like 'best tacos New York City' rather than complete sentences.
+
+19. Why might two users receive different answers when asking the same question to an AI model at the exact same time?
+19. AI language models are nondeterministic, meaning they can produce different outputs even when given identical inputs at the same time. This occurs because of how the models generate responses using probability distributions for the next most likely tokens.
+
+20. How can you improve the consistency and output quality of AI responses in applications?
+20. You can improve consistency by including instructions in your prompts that ask the AI to seek clarification when needed. For example, adding 'If you have any other questions for me, make sure you ask those first before you start to implement this feature' or 'If you don't understand what I'm saying, make sure that you come and check with me first' can significantly improve the quality of responses.
