@@ -72,3 +72,18 @@
 
 25. What is a key benefit of using AI coding assistants like GitHub Copilot or Cursor in terms of model selection?
 25. These tools provide access to multiple AI models from different providers, allowing you to choose different models based on your needs—such as using smaller models for simple tasks to save budget, or switching between providers like GPT and Claude to compare their behaviors and capabilities.
+
+26. When using the Live Server extension in VS Code, what command or action allows you to launch the local development server?
+26. Click the 'Go Live' button or right-click and choose 'Open'. This will start the Live Server and typically open the application at localhost:5500.
+
+27. What keyboard shortcut adds a new line when typing a prompt in the chat interface instead of sending the message?
+27. Shift-Return (or Shift-Enter) adds a new line without sending the prompt.
+
+28. In Copilot's chat interface, what does the 'Restore to Last Checkpoint' feature do?
+28. It undoes all changes back to the most recent prompt, effectively reverting everything generated in the current conversation checkpoint. This is useful when you want to discard unsatisfactory results and start over.
+
+29. What are the limitations of using a 'standard prompt' when generating code with AI assistants?
+29. Standard prompts often produce code with extra features not requested (like export buttons or search bars), may contain bugs (like non-functional save buttons), and don't provide enough specificity to get exactly what you need. They require more iterative refinement to achieve the desired result.
+
+30. What three core files does an AI assistant typically generate when creating a basic web application with HTML, CSS, and JavaScript?
+30. index.html (the main HTML structure), style.css (the styling), and script.js (the JavaScript functionality). The assistant may also update or create a readme file with documentation.
