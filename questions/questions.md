@@ -128,3 +128,18 @@ Do not add any other features than I had listed.
 
 40. What factors might cause a need to switch AI models in a production application?
 40. Several factors can necessitate switching models: the current model being deprecated, new models becoming available with better pricing, changes in accuracy requirements, or new models offering better performance characteristics. Cost changes can also be a factor, as newer versions of expensive models might become more affordable, or older models from different providers might offer sufficient capabilities at lower costs.
+
+41. What is one-shot prompting and how does it differ from zero-shot prompting?
+41. One-shot prompting is providing exactly one example with your request to an LLM, whereas zero-shot prompting provides zero examples. In one-shot prompting, the model learns the pattern, format, and style from the single example provided, which helps prime and train the model for the desired output.
+
+42. What is the "show don't tell" principle in the context of one-shot prompting?
+42. The "show don't tell" principle means it's more effective to provide a single example of the desired output format rather than writing lengthy paragraphs of instructions about what to do and not do. Showing an example of what you want the output to mimic is often easier and more effective than describing it in detail.
+
+43. What type of example should be chosen for one-shot prompting and why?
+43. A generalized case should be chosen as the example, not an edge case. The example should be the majority representative and not overly complex, because the model will generalize this as the pattern for all future outputs. Including edge cases or overly complex examples may cause the model to treat those complexities as the standard pattern.
+
+44. What are the key elements that should be included in a one-shot prompting example?
+44. The example should include all elements you want in your output. For instance, if you want JSON output with specific keys, you need to include all those keys in your example. The model won't know to include elements that aren't present in the example you provide.
+
+45. What is a limitation of one-shot prompting based on its ability to control outputs?
+45. One-shot prompting still isn't perfect for controlling outputs consistently. While it produces better and more relevant outputs by providing a pattern to follow, it may not always maintain consistent formatting or structure across different responses. Additional techniques need to be combined with one-shot prompting if precise output control is required, especially when passing answers from models to the next step in an application.
