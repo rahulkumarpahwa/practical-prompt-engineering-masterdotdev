@@ -143,3 +143,18 @@ Do not add any other features than I had listed.
 
 45. What is a limitation of one-shot prompting based on its ability to control outputs?
 45. One-shot prompting still isn't perfect for controlling outputs consistently. While it produces better and more relevant outputs by providing a pattern to follow, it may not always maintain consistent formatting or structure across different responses. Additional techniques need to be combined with one-shot prompting if precise output control is required, especially when passing answers from models to the next step in an application.
+
+46. What is one-shot prompting and how does it differ from a standard prompt?
+46. One-shot prompting involves providing an AI assistant with a single example of how to complete a task before asking it to perform a similar task. Unlike standard prompts that just ask for something directly, one-shot prompting includes an example format or structure to guide the AI's response, giving you more control over the output format and approach.
+
+47. When implementing a new feature using one-shot prompting, why is it beneficial to ask for a plan first rather than immediately implementing code?
+47. Asking for a plan first allows you to review and pare down the proposed implementation before any code is written. This gives you better control over code quality, lets you identify unnecessary features or complexity, and ensures you agree with the approach before implementation. It prevents the AI from adding unwanted features or frameworks and allows you to make adjustments to the plan before committing to code changes.
+
+48. What key components should be included when structuring a one-shot prompt for a feature implementation?
+48. A well-structured one-shot prompt for feature implementation should include: 1) A user story describing the feature need, 2) Technical requirements with bullet points, 3) Code structure with examples showing how to implement it, and 4) UX considerations for the user interface. This format provides a comprehensive example that guides the AI to respond in the same structured manner.
+
+49. How can you effectively use AI assistants to create better prompts?
+49. AI assistants are capable at crafting prompts for themselves. You can ask them to help break down complex tasks into smaller tasks and then help create the prompt. You can specify a particular prompting technique you want to use (like one-shot prompting) and ask for help creating a good example. You can also ask the AI to help parse down or make your prompts more efficient.
+
+50. What is a practical benefit of using one-shot prompting for study or learning purposes?
+50. One-shot prompting can be used to create personalized study guides by providing an example of your preferred learning format. For instance, you can show the AI an example where it asks a question, you answer, and it rates your answer as correct or incorrect with explanations for wrong answers. This creates a customized learning experience that can be tailored to your specific learning style and needs.
