@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Library — Save & Organize Your AI Prompts</title>
+  <meta name="description" content="A beautiful prompt library app to save, browse, and manage your AI prompts locally in your browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Tokens ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0d0f1a;
+      --surface:     #141728;
+      --surface-2:   #1c2038;
+      --border:      rgba(255,255,255,0.07);
+      --border-glow: rgba(120,100,255,0.35);
+
+      --accent:      #7c6bfc;
+      --accent-2:    #a78bfa;
+      --accent-glow: rgba(124,107,252,0.25);
+      --danger:      #f43f5e;
+      --danger-glow: rgba(244,63,94,0.2);
+
+      --text-1: #f0f0ff;
+      --text-2: #9499c0;
+      --text-3: #5a5f7a;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.45);
+      --shadow-glow: 0 0 40px var(--accent-glow);
+
+      --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-1);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Background orbs ────────────────────────────────────── */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(100px);
+      opacity: 0.18;
+    }
+    body::before {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #7c6bfc, transparent 70%);
+      top: -200px; left: -150px;
+    }
+    body::after {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #06b6d4, transparent 70%);
+      bottom: -150px; right: -100px;
+    }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    header {
+      text-align: center;
+      padding: 56px 0 40px;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,107,252,0.12);
+      border: 1px solid var(--border-glow);
+      border-radius: 99px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 18px;
+    }
+    .header-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    header h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    header p {
+      font-size: 15px;
+      color: var(--text-2);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ─── Form Card ──────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .card:focus-within {
+      border-color: var(--border-glow);
+      box-shadow: var(--shadow-card), var(--shadow-glow);
+    }
+
+    .form-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .form-header .icon {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--accent), #a78bfa);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .form-header h2 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-1);
+      font-family: inherit;
+      font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(124,107,252,0.06);
+      box-shadow: 0 0 0 3px rgba(124,107,252,0.15);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-3); }
+    .form-group textarea { min-height: 120px; line-height: 1.6; }
+
+    /* character counter */
+    .char-count {
+      text-align: right;
+      font-size: 11px;
+      color: var(--text-3);
+      margin-top: 5px;
+      transition: color var(--transition);
+    }
+    .char-count.warn { color: var(--danger); }
+
+    /* ─── Buttons ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+      color: #fff;
+      padding: 12px 24px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 18px var(--accent-glow);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background var(--transition);
+    }
+    .btn-primary:hover::after { background: rgba(255,255,255,0.1); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-primary:disabled:hover::after { background: none; }
+
+    /* ─── Stats Bar ──────────────────────────────────────────── */
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 32px 0 20px;
+    }
+    .stats-bar h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .prompt-count {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-2);
+      transition: all var(--transition);
+    }
+
+    /* Search */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .search-wrapper svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-3);
+      pointer-events: none;
+    }
+    #searchInput {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-1);
+      font-family: inherit;
+      font-size: 14px;
+      padding: 11px 16px 11px 42px;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    #searchInput:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,107,252,0.15);
+    }
+    #searchInput::placeholder { color: var(--text-3); }
+
+    /* ─── Prompt Grid ────────────────────────────────────────── */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    /* ─── Prompt Card ────────────────────────────────────────── */
+    .prompt-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      animation: fadeSlideUp 0.35s cubic-bezier(0.16,1,0.3,1) both;
+      position: relative;
+      overflow: hidden;
+    }
+    .prompt-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .prompt-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card), 0 8px 30px var(--accent-glow);
+    }
+    .prompt-card:hover::before { opacity: 1; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-1);
+      line-height: 1.4;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .btn-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-3);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all var(--transition);
+    }
+    .btn-icon:hover { background: var(--surface-2); color: var(--text-1); border-color: var(--border); }
+    .btn-icon.copy-btn:hover { color: var(--accent-2); }
+    .btn-icon.delete-btn:hover { color: var(--danger); background: var(--danger-glow); border-color: rgba(244,63,94,0.25); }
+
+    .card-content {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.65;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .card-date {
+      font-size: 11px;
+      color: var(--text-3);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .card-words {
+      font-size: 11px;
+      color: var(--text-3);
+      background: var(--surface-2);
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+    }
+
+    /* ─── Empty State ────────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 64px 20px;
+      grid-column: 1 / -1;
+      animation: fadeSlideUp 0.4s ease both;
+    }
+    .empty-icon {
+      font-size: 52px;
+      margin-bottom: 16px;
+      display: block;
+      opacity: 0.5;
+    }
+    .empty-state h4 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-2);
+      margin-bottom: 8px;
+    }
+    .empty-state p {
+      font-size: 13px;
+      color: var(--text-3);
+      line-height: 1.6;
+    }
+
+    /* ─── Toast ──────────────────────────────────────────────── */
+    .toast-container {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-1);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInToast 0.3s cubic-bezier(0.16,1,0.3,1) both;
+      pointer-events: auto;
+    }
+    .toast.success .toast-icon { color: #34d399; }
+    .toast.error   .toast-icon { color: var(--danger); }
+    .toast.info    .toast-icon { color: var(--accent-2); }
+    .toast.removing { animation: slideOutToast 0.25s ease forwards; }
+
+    /* ─── Delete confirm overlay ─────────────────────────────── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .dialog {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      transform: scale(0.92) translateY(12px);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .overlay.active .dialog {
+      transform: scale(1) translateY(0);
+    }
+    .dialog-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--danger-glow);
+      border: 1px solid rgba(244,63,94,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .dialog h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .dialog p {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .dialog-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-ghost {
+      flex: 1;
+      padding: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-2);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-ghost:hover { color: var(--text-1); border-color: rgba(255,255,255,0.15); }
+    .btn-danger {
+      flex: 1;
+      padding: 10px;
+      background: var(--danger);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: 0 4px 14px var(--danger-glow);
+    }
+    .btn-danger:hover { filter: brightness(1.1); }
+    .btn-danger:active { transform: scale(0.97); }
+
+    /* ─── Keyframes ──────────────────────────────────────────── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInToast {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideOutToast {
+      to   { opacity: 0; transform: translateX(30px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .card { padding: 22px 18px; }
+      header { padding: 36px 0 28px; }
+      .prompt-grid { grid-template-columns: 1fr; }
+      .toast-container { bottom: 16px; right: 16px; left: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-wrapper">
+
+    <!-- Header -->
+    <header>
+      <div class="header-badge"><span class="dot"></span>Prompt Library</div>
+      <h1>Your Personal Prompt<br>Collection</h1>
+      <p>Save, organize, and reuse your best AI prompts. Everything stays in your browser — no account needed.</p>
+    </header>
+
+    <!-- Add Prompt Form -->
+    <div class="card" id="addPromptCard">
+      <div class="form-header">
+        <div class="icon">&#10024;</div>
+        <h2>Add New Prompt</h2>
+      </div>
+
+      <div class="form-group">
+        <label for="promptTitle">Title</label>
+        <input
+          type="text"
+          id="promptTitle"
+          placeholder="e.g. Explain Like I'm Five"
+          maxlength="80"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="promptContent">Prompt Content</label>
+        <textarea
+          id="promptContent"
+          placeholder="Write your prompt here&#8230; Be as detailed as you like."
+          maxlength="2000"
+        ></textarea>
+        <div class="char-count" id="charCount">0 / 2000</div>
+      </div>
+
+      <button class="btn btn-primary" id="saveBtn" disabled>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save Prompt
+      </button>
+    </div>
+
+    <!-- Prompt Library -->
+    <div class="stats-bar">
+      <h3>Saved Prompts</h3>
+      <span class="prompt-count" id="promptCount">0 prompts</span>
+    </div>
+
+    <div class="search-wrapper" id="searchWrapper" style="display:none;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search prompts&#8230;" autocomplete="off" />
+    </div>
+
+    <div class="prompt-grid" id="promptGrid" role="list" aria-label="Saved prompts">
+      <!-- Prompt cards rendered here -->
+    </div>
+  </div>
+
+  <!-- Delete Confirm Dialog -->
+  <div class="overlay" id="deleteOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="dialog">
+      <div class="dialog-icon">&#128465;&#65039;</div>
+      <h3 id="dialogTitle">Delete Prompt?</h3>
+      <p>This will permanently remove <strong id="deletePromptName"></strong> from your library. This action cannot be undone.</p>
+      <div class="dialog-actions">
+        <button class="btn-ghost" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script>
+    /* ─── Storage ─────────────────────────────────────────────── */
+    const STORAGE_KEY = 'prompt_library_v1';
+
+    function loadPrompts() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+    function savePrompts(prompts) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(prompts));
+    }
+
+    /* ─── State ───────────────────────────────────────────────── */
+    let prompts = loadPrompts();
+    let pendingDeleteId = null;
+    let searchQuery = '';
+
+    /* ─── DOM refs ────────────────────────────────────────────── */
+    const titleInput       = document.getElementById('promptTitle');
+    const contentInput     = document.getElementById('promptContent');
+    const charCount        = document.getElementById('charCount');
+    const saveBtn          = document.getElementById('saveBtn');
+    const promptGrid       = document.getElementById('promptGrid');
+    const promptCountEl    = document.getElementById('promptCount');
+    const searchWrapper    = document.getElementById('searchWrapper');
+    const searchInput      = document.getElementById('searchInput');
+    const deleteOverlay    = document.getElementById('deleteOverlay');
+    const deletePromptName = document.getElementById('deletePromptName');
+    const cancelDeleteBtn  = document.getElementById('cancelDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const toastContainer   = document.getElementById('toastContainer');
+
+    /* ─── Helpers ─────────────────────────────────────────────── */
+    function genId() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    }
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function wordCount(str) {
+      return str.trim().split(/\s+/).filter(Boolean).length;
+    }
+    function escHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* ─── Toast ───────────────────────────────────────────────── */
+    function showToast(message, type = 'success', duration = 2800) {
+      const icons = { success: '&#10003;', error: '&#10005;', info: '&#8505;' };
+      const toast = document.createElement('div');
+      toast.className = 'toast ' + type;
+      toast.innerHTML = '<span class="toast-icon">' + icons[type] + '</span> ' + escHtml(message);
+      toastContainer.appendChild(toast);
+      setTimeout(function() {
+        toast.classList.add('removing');
+        toast.addEventListener('animationend', function() { toast.remove(); }, { once: true });
+      }, duration);
+    }
+
+    /* ─── Render ──────────────────────────────────────────────── */
+    function render() {
+      var filtered = prompts.filter(function(p) {
+        return !searchQuery ||
+          p.title.toLowerCase().indexOf(searchQuery) !== -1 ||
+          p.content.toLowerCase().indexOf(searchQuery) !== -1;
+      });
+
+      var total = prompts.length;
+      promptCountEl.textContent = total === 0 ? 'No prompts'
+        : total === 1 ? '1 prompt'
+        : total + ' prompts';
+
+      searchWrapper.style.display = total > 0 ? '' : 'none';
+      promptGrid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        var empty = document.createElement('div');
+        empty.className = 'empty-state';
+        if (total === 0) {
+          empty.innerHTML =
+            '<span class="empty-icon">&#128221;</span>' +
+            '<h4>Your library is empty</h4>' +
+            '<p>Create your first prompt using the form above.<br>Saved prompts will appear here.</p>';
+        } else {
+          empty.innerHTML =
+            '<span class="empty-icon">&#128269;</span>' +
+            '<h4>No results for &ldquo;' + escHtml(searchQuery) + '&rdquo;</h4>' +
+            '<p>Try a different search term.</p>';
+        }
+        promptGrid.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach(function(prompt, idx) {
+        var card = document.createElement('article');
+        card.className = 'prompt-card';
+        card.setAttribute('role', 'listitem');
+        card.style.animationDelay = Math.min(idx * 0.05, 0.3) + 's';
+
+        var words = wordCount(prompt.content);
+
+        card.innerHTML =
+          '<div class="card-header">' +
+            '<div class="card-title">' + escHtml(prompt.title) + '</div>' +
+            '<div class="card-actions">' +
+              '<button class="btn-icon copy-btn" title="Copy prompt" data-id="' + prompt.id + '" aria-label="Copy prompt">' +
+                '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+              '</button>' +
+              '<button class="btn-icon delete-btn" title="Delete prompt" data-id="' + prompt.id + '" aria-label="Delete prompt">' +
+                '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card-content">' + escHtml(prompt.content) + '</div>' +
+          '<div class="card-footer">' +
+            '<span class="card-date">' +
+              '<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+              formatDate(prompt.createdAt) +
+            '</span>' +
+            '<span class="card-words">' + words + ' word' + (words !== 1 ? 's' : '') + '</span>' +
+          '</div>';
+
+        card.querySelector('.copy-btn').addEventListener('click', function() { copyPrompt(prompt.id); });
+        card.querySelector('.delete-btn').addEventListener('click', function() { askDelete(prompt.id, prompt.title); });
+
+        promptGrid.appendChild(card);
+      });
+    }
+
+    /* ─── Save ────────────────────────────────────────────────── */
+    function handleSave() {
+      var title   = titleInput.value.trim();
+      var content = contentInput.value.trim();
+      if (!title || !content) return;
+
+      var newPrompt = { id: genId(), title: title, content: content, createdAt: new Date().toISOString() };
+      prompts = [newPrompt].concat(prompts);
+      savePrompts(prompts);
+
+      titleInput.value   = '';
+      contentInput.value = '';
+      updateCharCount();
+      updateSaveBtn();
+      render();
+      showToast('Prompt saved!', 'success');
+      promptGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ─── Copy ────────────────────────────────────────────────── */
+    function copyPrompt(id) {
+      var prompt = prompts.find(function(p) { return p.id === id; });
+      if (!prompt) return;
+      navigator.clipboard.writeText(prompt.content).then(function() {
+        showToast('Copied to clipboard!', 'info');
+      }).catch(function() {
+        showToast('Copy failed — please copy manually.', 'error');
+      });
+    }
+
+    /* ─── Delete ──────────────────────────────────────────────── */
+    function askDelete(id, title) {
+      pendingDeleteId = id;
+      deletePromptName.textContent = '"' + title + '"';
+      deleteOverlay.classList.add('active');
+      confirmDeleteBtn.focus();
+    }
+    function closeDialog() {
+      deleteOverlay.classList.remove('active');
+      pendingDeleteId = null;
+    }
+    function confirmDelete() {
+      if (!pendingDeleteId) return;
+      prompts = prompts.filter(function(p) { return p.id !== pendingDeleteId; });
+      savePrompts(prompts);
+      closeDialog();
+      render();
+      showToast('Prompt deleted.', 'error');
+    }
+
+    /* ─── Char counter & button state ────────────────────────── */
+    function updateCharCount() {
+      var len = contentInput.value.length;
+      charCount.textContent = len + ' / 2000';
+      charCount.classList.toggle('warn', len > 1800);
+    }
+    function updateSaveBtn() {
+      var ok = titleInput.value.trim().length > 0 && contentInput.value.trim().length > 0;
+      saveBtn.disabled = !ok;
+    }
+
+    /* ─── Event listeners ────────────────────────────────────── */
+    titleInput.addEventListener('input', updateSaveBtn);
+    contentInput.addEventListener('input', function() { updateCharCount(); updateSaveBtn(); });
+    saveBtn.addEventListener('click', handleSave);
+
+    titleInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); contentInput.focus(); }
+    });
+    contentInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); handleSave(); }
+    });
+
+    searchInput.addEventListener('input', function() {
+      searchQuery = searchInput.value.toLowerCase().trim();
+      render();
+    });
+
+    cancelDeleteBtn.addEventListener('click', closeDialog);
+    confirmDeleteBtn.addEventListener('click', confirmDelete);
+    deleteOverlay.addEventListener('click', function(e) { if (e.target === deleteOverlay) closeDialog(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && deleteOverlay.classList.contains('active')) closeDialog();
+    });
+
+    /* ─── Init ───────────────────────────────────────────────── */
+    render();
+  </script>
+</body>
+</html>
