@@ -57,3 +57,18 @@
 
 20. How can you improve the consistency and output quality of AI responses in applications?
 20. You can improve consistency by including instructions in your prompts that ask the AI to seek clarification when needed. For example, adding 'If you have any other questions for me, make sure you ask those first before you start to implement this feature' or 'If you don't understand what I'm saying, make sure that you come and check with me first' can significantly improve the quality of responses.
+
+21. What is the primary advantage of using GitHub Copilot or Cursor over using a standard chat interface when working with AI assistants for code generation?
+21. GitHub Copilot and Cursor can directly edit your code within the IDE instead of requiring you to copy and paste code back and forth between a chat interface and your editor, which makes the workflow less messy and more efficient.
+
+22. What is the purpose of the Live Server extension in VS Code when working with HTML, CSS, and JavaScript files?
+22. Live Server allows you to quickly run and view your HTML, CSS, and JavaScript files in a browser by clicking a 'Go Live' button, which launches a localhost server to display your application without needing additional setup or dependencies.
+
+23. In GitHub Copilot, what are the three main modes available at the bottom of the chat interface, and what is each used for?
+23. The three modes are: Agent mode (for building with and having the AI build for you), Ask mode (for asking questions about your code, such as what it's doing or how it works), and Edit mode (for editing code in context).
+
+24. How can you add context to your AI assistant in GitHub Copilot, and what context is automatically included?
+24. You can add context by clicking the context area or using the pound/hashtag symbol to reference specific files, extensions, or commands. Any file you are currently viewing or have open in your editor is automatically included in the context.
+
+25. What is a key benefit of using AI coding assistants like GitHub Copilot or Cursor in terms of model selection?
+25. These tools provide access to multiple AI models from different providers, allowing you to choose different models based on your needs—such as using smaller models for simple tasks to save budget, or switching between providers like GPT and Claude to compare their behaviors and capabilities.
