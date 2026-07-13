@@ -113,3 +113,18 @@ Do not add other dependencies.
 Do not add any other features than I had listed.
 
 35. This prompt is more effective because it provides high specificity with low complexity. It breaks down exactly what features are needed step-by-step, explicitly states what NOT to include (no other features, no other dependencies), and focuses on only the essential functionality (save and delete). This specificity helps prevent the model from adding unwanted features like export buttons or search functionality that weren't requested.
+
+36. What are some key differences between AI models that should be considered when selecting one for an application?
+36. Different models vary in several ways: some are faster while others are slower, some are better at making things look good at first pass, while others excel at handling complex logic. Additionally, models differ significantly in cost, which can impact whether they're worth using for a particular application, especially when running operations thousands of times per day.
+
+37. Why is it important to write flexible code when building AI applications?
+37. Models can be deprecated with little notice, and new tools can appear or disappear unexpectedly in the AI landscape. Writing flexible code and prompts ensures that you can switch between different models and providers quickly if needed, without major code rewrites.
+
+38. When comparing Haiku and Sonnet 4 for a classification system, what was the primary factor in deciding which model to use?
+38. The primary factor was cost versus accuracy. Sonnet 4 was at least 80% more expensive than Haiku, and when running the classification thousands of times per day, it was important to determine if Haiku provided accurate enough information. Since Haiku was 99% accurate for the use case, the additional cost of Sonnet 4 wasn't justified.
+
+39. What approach should developers take when evaluating AI models and providers?
+39. Developers should try multiple models and multiple providers rather than sticking with only familiar tools. It's important to evaluate different options based on actual needs, as different providers offer models with varying capabilities and pricing. This includes giving fair consideration to models from different providers, even if there was initial skepticism about them.
+
+40. What factors might cause a need to switch AI models in a production application?
+40. Several factors can necessitate switching models: the current model being deprecated, new models becoming available with better pricing, changes in accuracy requirements, or new models offering better performance characteristics. Cost changes can also be a factor, as newer versions of expensive models might become more affordable, or older models from different providers might offer sufficient capabilities at lower costs.
