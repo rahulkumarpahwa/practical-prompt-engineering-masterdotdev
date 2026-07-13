@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Library — Save &amp; Organize Your AI Prompts</title>
+  <meta name="description" content="A beautiful prompt library app to save, browse, and manage your AI prompts locally in your browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+
+    <!-- Header -->
+    <header>
+      <div class="header-badge"><span class="dot"></span>Prompt Library</div>
+      <h1>Your Personal Prompt<br>Collection</h1>
+      <p>Save, organize, and reuse your best AI prompts. Everything stays in your browser — no account needed.</p>
+    </header>
+
+    <!-- Add Prompt Form -->
+    <div class="card" id="addPromptCard">
+      <div class="form-header">
+        <div class="icon">&#10024;</div>
+        <h2>Add New Prompt</h2>
+      </div>
+
+      <div class="form-group">
+        <label for="promptTitle">Title</label>
+        <input
+          type="text"
+          id="promptTitle"
+          placeholder="e.g. Explain Like I'm Five"
+          maxlength="80"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="promptContent">Prompt Content</label>
+        <textarea
+          id="promptContent"
+          placeholder="Write your prompt here&#8230; Be as detailed as you like."
+          maxlength="2000"
+        ></textarea>
+        <div class="char-count" id="charCount">0 / 2000</div>
+      </div>
+
+      <button class="btn btn-primary" id="saveBtn" disabled>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save Prompt
+      </button>
+    </div>
+
+    <!-- Prompt Library -->
+    <div class="stats-bar">
+      <h3>Saved Prompts</h3>
+      <span class="prompt-count" id="promptCount">0 prompts</span>
+    </div>
+
+    <div class="search-wrapper" id="searchWrapper" style="display:none;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search prompts&#8230;" autocomplete="off" />
+    </div>
+
+    <div class="prompt-grid" id="promptGrid" role="list" aria-label="Saved prompts">
+      <!-- Prompt cards rendered here -->
+    </div>
+  </div>
+
+  <!-- Delete Confirm Dialog -->
+  <div class="overlay" id="deleteOverlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="dialog">
+      <div class="dialog-icon">&#128465;&#65039;</div>
+      <h3 id="dialogTitle">Delete Prompt?</h3>
+      <p>This will permanently remove <strong id="deletePromptName"></strong> from your library. This action cannot be undone.</p>
+      <div class="dialog-actions">
+        <button class="btn-ghost" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

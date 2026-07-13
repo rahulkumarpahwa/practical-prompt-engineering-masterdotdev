@@ -27,3 +27,18 @@
 
 10. What happens when the temperature parameter is set to its maximum value of 2 in an LLM?
 10. At temperature 2, the output becomes completely illegible and chaotic. It won't even be broken English—it will just be randomness. This setting is never practically used because the output is unusable.
+
+11. What is the approximate relationship between tokens and words in Large Language Models?
+11. Tokens are roughly 0.75 words, but not always. This ratio doesn't hold true for code or punctuation. Tokens are to LLMs what words are to humans - they are how LLMs understand and process language. Words are broken down into token IDs that the LLM ingests to understand input.
+
+12. How do Large Language Models maintain conversation history if they technically have no memory?
+12. LLMs maintain conversation history through their context window by sending cumulative tokens (input and output history) with every chat message. For example, when asking a follow-up question, all previous messages and responses are sent along with the new message in the background, even though users don't see this happening.
+
+13. What happens when an LLM reaches its context window token limit during a conversation?
+13. When the token limit is reached, the oldest context drops off silently without notification. This means the earliest parts of the conversation will be forgotten first, which can cause the model to lose important initial instructions or context that was provided at the beginning of the conversation.
+
+14. What is a system message in an LLM interaction and how does it affect model behavior?
+14. A system message is an invisible instruction set by the provider (OpenAI, Anthropic, GitHub, Cursor, etc.) that controls the LLM's personality and behavior. It takes up part of the context window, remains persistent throughout the conversation, and never drops off. The system message is why the same model behaves differently across different tools - for example, Claude might be a "friendly generalized assistant" in chat but a "helpful coding assistant" in Copilot.
+
+15. Why should you avoid adding entire codebases or large folders to an LLM's context when seeking coding assistance?
+15. Adding entire codebases or large folders fills up the context window with unnecessary information, similar to trying to look at every file in a codebase at once, which is overwhelming. This can lead to poor results because the model has too much context to process. Instead, you should add only the minimal amount of context needed, such as specific relevant files like a test file and related frontend file, to get good outputs.
