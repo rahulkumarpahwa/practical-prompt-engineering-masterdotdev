@@ -188,3 +188,18 @@ Do not add any other features than I had listed.
 
 60. What strategy can be used at the end of a prompt to prevent LLMs from adding extra features beyond the specified scope?
 60. You should explicitly instruct the model to keep the implementation simple and within scope by adding instructions like "Keep it as simple as possible to create a working [feature] with only the features mentioned in your task" or "implement this feature with no additional features."
+
+61. What percentage of prompts use few-shot prompting according to research, and why is it more commonly used for certain tasks?
+61. Few-shot prompting is used approximately 15-20% of the time. It is more commonly used for complex tasks because few-shot prompting improved exponentially with larger models, whereas one-shot prompting improved but without the same growth rate. It's particularly valuable for complex use cases despite requiring extra time to craft additional examples.
+
+62. What is the recommended approach when using an LLM to generate few-shot examples for prompts?
+62. When having an LLM provide few-shot examples, you should review them carefully with a fine-tooth comb to ensure they look correct, verify the schema is appropriate if generating code, and check other relevant considerations before using them in your prompts.
+
+63. How can you monitor token usage in prompts when working with OpenAI models?
+63. You can use OpenAI's tokenizer tool to monitor token usage by copying and pasting your prompts to see how many tokens you're using. It's important to remember that tokens include your entire conversation history (input and output) and the system message, which all get appended every time you interact with the model.
+
+64. When should you consider starting a new chat session with an LLM instead of continuing in the current context window?
+64. You should consider starting a new chat session when the performance of the model begins to degrade. This degradation indicates that either something is lost from context or something is confusing the model within the current context window. For typical day-to-day use with models having over 100,000 tokens in their context window, this is rarely an issue.
+
+65. What is the continue pattern and when should it be used with LLMs?
+65. The continue pattern is used when an LLM response gets cut off mid-output. In Claude, ChatGPT, and Copilot, you can either click a 'continue' button if available or simply type the word 'continue' and press send, and the model will resume outputting the rest of its response from where it stopped.
