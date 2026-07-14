@@ -173,3 +173,18 @@ Do not add any other features than I had listed.
 
 55. What types of tasks are most suitable for few-shot prompting?
 55. Few-shot prompting is most suitable for: complex patterns with multiple variations, classification tasks with many categories, standardizing formats with diverse inputs, and domain-specific tasks that require specialized context (such as working in a large codebase with domain-specific knowledge).
+
+56. What is a key advantage of few-shot prompting compared to simpler prompting techniques when working with LLMs?
+56. Few-shot prompting allows you to complete larger and more complex tasks in one prompt because you're providing multiple examples to the model, which makes it acceptable to increase the complexity and scope of your request.
+
+57. In few-shot prompting for feature implementation, what are the four key components that should be included in each example prompt according to the pattern shown?
+57. Each example prompt should include: 1) A clear feature description, 2) Specific technical requirements, 3) Implementation details, and 4) Expected deliverables with a data structure and integration notes.
+
+58. Why might you use an LLM to create a prompt for implementing a feature rather than asking it to directly write the code?
+58. Creating a prompt first allows you to review and fine-tune the specifications, logic, and requirements before any code is actually implemented. This gives you the opportunity to catch problems with structure or logic, or to add or remove important details before moving to the implementation phase.
+
+59. What challenge is associated with few-shot prompting when providing multiple examples?
+59. Few-shot prompting requires significant human engineering effort because the prompts become very long and difficult to create. Providing multiple shots (especially 8 or more examples) takes considerable time and effort to not only write out but to get right.
+
+60. What strategy can be used at the end of a prompt to prevent LLMs from adding extra features beyond the specified scope?
+60. You should explicitly instruct the model to keep the implementation simple and within scope by adding instructions like "Keep it as simple as possible to create a working [feature] with only the features mentioned in your task" or "implement this feature with no additional features."
