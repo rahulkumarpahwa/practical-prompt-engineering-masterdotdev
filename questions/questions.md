@@ -203,3 +203,18 @@ Do not add any other features than I had listed.
 
 65. What is the continue pattern and when should it be used with LLMs?
 65. The continue pattern is used when an LLM response gets cut off mid-output. In Claude, ChatGPT, and Copilot, you can either click a 'continue' button if available or simply type the word 'continue' and press send, and the model will resume outputting the rest of its response from where it stopped.
+
+66. In terms of information retention in prompts, how does the placement of critical information at the beginning, middle, and end of the context affect model performance?
+66. The beginning of the prompt is best for information retention, followed by the end, with the middle being worst. Models struggle with the middle of long contexts, so critical information should go first and supporting details should go last.
+
+67. What are primacy bias and recency bias, and how do they apply to large language models?
+67. Primacy bias is the tendency to remember information better at the beginning of context, while recency bias is the tendency to remember information at the end. LLMs exhibit both of these biases, similar to human psychology, because they operate using neural networks.
+
+68. According to the "Lost in the Middle" research paper, how did language model performance compare when the answer was in the middle of documents versus when no documents were provided at all?
+68. When the answer was in the middle of the documents (roughly positions 7-16), the model performed worse than when no documents were provided at all. The model achieved approximately 56-57% accuracy with no context (closed book), but performed worse when the answer was buried in the middle of provided documents.
+
+69. At approximately what token count does the "lost in the middle" problem begin to appear in language models?
+69. The "lost in the middle" problem can start to appear at just a couple thousand tokens. This threshold can be reached quickly when considering system messages, user inputs, and other attached context.
+
+70. What is the recommended approach when chat performance degrades or when a large amount of context has accumulated?
+70. When chat performance degrades, such as when bugs keep reappearing or the model provides increasingly poor responses, it's recommended to start a new chat. This helps avoid the "lost in the middle" effect. Additionally, if important information was mentioned earlier, it should be brought up again as the chat grows to prevent it from getting lost in the middle of the context.
