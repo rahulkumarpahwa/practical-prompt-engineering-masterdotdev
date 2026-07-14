@@ -1,0 +1,176 @@
+I need you to create a prompt for implementing a new feature. Here are examples of effective feature implementation prompts:
+
+**EXAMPLE 1: Save/Delete Functionality Prompt**
+Create a save and delete system for a prompt library application with the following requirements:
+
+Technical Specifications:
+- Save button that persists prompts to localStorage
+- Delete button with confirmation dialog before removal
+- Visual feedback on successful save (green checkmark animation)
+- Trash icon with hover effect for delete action
+- Auto-save indicator when changes are detected
+
+Provide complete HTML, CSS, and JavaScript with:
+1. Semantic HTML with data attributes for prompt IDs
+2. CSS animations for save confirmation and delete hover states
+3. JavaScript with proper event delegation for dynamically added prompts
+4. localStorage integration with JSON serialization
+
+The system should work with this data structure:
+const prompts = [
+  { id: 'prompt-001', title: "Blog Writer", content: "Generate blog posts...", savedAt: Date.now() }
+];
+
+Include error handling for localStorage quota exceeded and implement a "Recently Deleted" temporary storage (up to 5 items).
+
+**EXAMPLE 2: Star Rating Component Prompt**
+Build a 5-star rating system for rating prompt effectiveness with these specifications:
+
+Core Requirements:
+- Interactive 5-star display (click to rate, hover to preview)
+- Half-star precision (4.5 stars possible)
+- Shows average rating and total number of ratings
+- Updates immediately without page refresh
+- Allows users to change their rating
+
+Implementation Details:
+- SVG stars for crisp display at any size
+- Gold fill for rated, gray outline for unrated
+- Smooth hover animations (scale and glow effect)
+- Display format: "4.5 ★ (23 ratings)"
+
+Deliver production-ready code including:
+1. HTML with accessible ARIA labels for screen readers
+2. CSS with star animations and responsive sizing
+3. JavaScript for rating logic and state management
+4. Comments explaining calculation methods
+
+Data model to support:
+{
+  promptId: 'prompt-001',
+  ratings: [5, 4, 5, 3, 5], // Array of all ratings
+  userRating: 4, // Current user's rating
+  averageRating: 4.4
+}
+
+**YOUR TASK:** Based on the examples above, create a detailed prompt for building a "notes section" feature where users can add, edit, save, and delete notes for each prompt in the library.
+
+The prompt should follow the pattern shown in the examples:
+
+- Clear feature description
+- Specific technical requirements
+- Implementation details
+- Expected deliverables
+- Data structure/integration notes
+
+Keep it as simple as possible to create a working notes section with only the features mentioned in your task.
+
+
+------------
+Response from Kimi2.6
+
+Prompt to Generate “Notes Section” Feature
+Build a Notes section for a prompt library application where each prompt can have its own saved notes. The notes UI must support add, edit, save, and delete notes for each prompt in the library.
+
+Feature Description
+Users can manage notes tied to a specific prompt. Each prompt shows a Notes section where users can:
+
+Create new notes
+Edit existing notes
+Save notes (persisted)
+Delete notes (with confirmation)
+Technical Requirements
+Per-prompt notes
+Notes are scoped to a promptId (so notes do not mix between prompts).
+Add / Edit / Save / Delete
+Add: user can create a note by entering text and clicking Add Note.
+Edit: user can load an existing note into an editor and click Save.
+Save: persist to storage.
+Delete: delete with a confirmation dialog before removal.
+Persistence
+Use localStorage with JSON serialization.
+Store notes in a single collection keyed by promptId.
+UI feedback
+After saving successfully, show a short visual confirmation (e.g., “Saved” indicator).
+On delete, briefly show a “Deleted” message.
+Event handling for dynamic content
+Use event delegation if notes are rendered dynamically.
+Error handling
+Handle localStorage quota exceeded errors gracefully (show a user-friendly message).
+Empty state
+If a prompt has no notes, show “No notes yet”.
+Data Model / Integration Notes
+Integrate with the existing prompt library data model (example structure):
+
+
+const prompts = [
+  { id: 'prompt-001', title: "Blog Writer", content: "Generate blog posts...", savedAt: Date.now() }
+];
+Store notes like this in localStorage (single object key):
+
+
+const notesByPrompt = {
+  "prompt-001": [
+    {
+      id: "note-001",
+      promptId: "prompt-001",
+      content: "Write a strong intro...",
+      createdAt: 1710000000000,
+      updatedAt: 1710000000000
+    }
+  ]
+};
+You may store under a single localStorage key such as:
+
+promptLibrary.notesByPrompt
+When saving/updating/deleting, keep timestamps updated:
+
+createdAt only on creation
+updatedAt on edit/save
+UI/UX Implementation Details
+HTML
+Add a Notes panel inside each prompt card/entry.
+Use semantic markup and include identifiers with data attributes:
+data-prompt-id
+note list container: data-notes-container
+Controls
+Notes editor textarea/input for note content
+Buttons:
+Add Note
+Save (for edit mode)
+Delete (for a specific note; one per note row/item)
+Edit mode
+Clicking an existing note should populate the editor with that note’s content and switch buttons into edit mode:
+Add Note hidden/disabled
+Save enabled
+Delete confirmation
+Use confirm("Are you sure you want to delete this note?") (or a custom modal if you prefer).
+Visual feedback
+Implement a minimal CSS animation for save confirmation and delete hover/flash:
+Save success: fade-in “Saved” message
+Delete button hover: subtle color change/scale
+JavaScript Requirements
+Functions to implement:
+loadNotes(promptId) → returns notes array for that prompt
+persistNotes(promptId, notes) → writes updated notesByPrompt to localStorage
+createNote(promptId, content)
+updateNote(promptId, noteId, content)
+deleteNote(promptId, noteId)
+renderNotes(promptId)
+State management:
+Maintain activeEditNoteId per prompt context (at least in-memory).
+Use event delegation:
+Handle clicks on note items/buttons from a parent container.
+Expected Deliverables
+Provide complete production-ready code for:
+
+HTML (Notes section markup integrated with prompt UI)
+CSS (notes layout + save/delete feedback animations)
+JavaScript (notes CRUD + localStorage persistence + event delegation + render logic)
+Success Criteria
+Notes are created, edited, saved, and deleted per promptId
+Refreshing the page preserves saved notes
+Delete requires confirmation
+Saving shows clear feedback
+Errors from localStorage quota are handled without breaking the UI
+Use only standard web APIs (no frameworks required).

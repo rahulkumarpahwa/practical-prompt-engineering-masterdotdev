@@ -158,3 +158,18 @@ Do not add any other features than I had listed.
 
 50. What is a practical benefit of using one-shot prompting for study or learning purposes?
 50. One-shot prompting can be used to create personalized study guides by providing an example of your preferred learning format. For instance, you can show the AI an example where it asks a question, you answer, and it rates your answer as correct or incorrect with explanations for wrong answers. This creates a customized learning experience that can be tailored to your specific learning style and needs.
+
+51. What is few-shot prompting and when should it be used?
+51. Few-shot prompting involves providing two or more examples in a prompt. It should be used when dealing with complex logic, multiple formats to consider, and various edge cases. The examples help establish patterns and allow the model to learn nuances and variations from diverse inputs and outputs.
+
+52. According to the research paper "Language Models are Few-Shot Learners," how does few-shot prompting effectiveness change as language models get larger?
+52. Few-shot prompting shows an exponential increase in accuracy as language models get larger. While zero-shot and one-shot prompting techniques also got more effective with larger models, few-shot prompting improved more rapidly, making it particularly effective for complex tasks with modern large language models.
+
+53. What is the ideal number of examples to include in a few-shot prompt, and what happens if too many are provided?
+53. The ideal number is typically four to eight examples. Diminishing returns are seen after ten examples, and some models actually degrade in performance with too many shots. The most important factors are that examples should be diverse and high-quality rather than simply numerous.
+
+54. What are the recommended best practices for creating effective few-shot prompts?
+54. Best practices include: ensuring diversity in examples, including edge cases and failure cases, keeping examples concise but complete without sacrificing quality, and testing different numbers of examples across multiple chats to determine optimal performance for the specific use case and model.
+
+55. What types of tasks are most suitable for few-shot prompting?
+55. Few-shot prompting is most suitable for: complex patterns with multiple variations, classification tasks with many categories, standardizing formats with diverse inputs, and domain-specific tasks that require specialized context (such as working in a large codebase with domain-specific knowledge).
