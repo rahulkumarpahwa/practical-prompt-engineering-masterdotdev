@@ -249,3 +249,18 @@ Location: conference room B
 Topic: Q4 budget
 
 This demonstrates how structured output can extract specific information from unstructured text and format it consistently.
+
+76. In a metadata tracking system for prompts, what is the base calculation for estimating tokens from text content?
+76. The base calculation is 0.75 times the word count. For code content, this calculation is multiplied by 1.3 to account for the fact that code tends to tokenize less efficiently than regular text.
+
+77. What are the three confidence levels for token estimation and what ranges do they correspond to?
+77. High confidence for less than 1000 tokens, medium confidence for 1000 to 5000 tokens, and low confidence for greater than 5000 tokens.
+
+78. What validation rule is used for date fields in the metadata tracking system?
+78. All dates must be valid ISO 8601 strings. Additionally, the updated_at timestamp must occur after the created_at timestamp.
+
+79. What are the constraints for the model name field in the prompt metadata tracking system?
+79. The model name must be a non-empty string with a maximum of 100 characters. It should remain flexible to accommodate new models as they are released.
+
+80. What color-coding scheme is used to visually display token estimation confidence levels in the HTML component?
+80. Green for high confidence, yellow for medium confidence, and red for low confidence.
