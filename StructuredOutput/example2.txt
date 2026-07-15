@@ -1,0 +1,19 @@
+Convert this error into JSON. Return ONLY the JSON, no explanation.
+
+"Error 404 occurred at 3:45 PM when trying to access /users/profile endpoint"
+
+----------------
+Response KIMI2.6:
+
+```json
+{"error":
+    {   "code":404,
+        "occurred_at":"3:45 PM",
+        "message":"Error 404 occurred at 3:45 PM when trying to access /users/profile endpoint"
+    }, 
+    "request":{
+        "path":"/users/profile",
+        "endpoint":"/users/profile"
+    }
+}
+```

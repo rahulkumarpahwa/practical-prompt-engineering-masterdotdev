@@ -1,0 +1,19 @@
+Extract the meeting details from this email.
+
+Format like this:
+Date: [date]
+Time: [time]
+Location: [location]
+Topic: [topic]
+
+Email: "Let's meet tomorrow at 2 PM in Conference Room B to discuss the Q4 budget."
+
+----------------
+Response KIMI 2.6:
+
+Date: tomorrow
+Time: 2 PM
+Location: Conference Room B
+Topic: Q4 budget
+
+Email: "Let's meet tomorrow at 2 PM in Conference Room B to discuss the Q4 budget."

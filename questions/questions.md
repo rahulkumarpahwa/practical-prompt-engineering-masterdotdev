@@ -218,3 +218,34 @@ Do not add any other features than I had listed.
 
 70. What is the recommended approach when chat performance degrades or when a large amount of context has accumulated?
 70. When chat performance degrades, such as when bugs keep reappearing or the model provides increasingly poor responses, it's recommended to start a new chat. This helps avoid the "lost in the middle" effect. Additionally, if important information was mentioned earlier, it should be brought up again as the chat grows to prevent it from getting lost in the middle of the context.
+
+71. Why is structured output important when building AI applications with LLMs?
+71. Structured output ensures consistent formats every time, which is critical when connecting an LLM to other parts of an application. Without structured output, you might receive a paragraph, sentence, array, or JSON object inconsistently, making it impossible to reliably process the data in subsequent application steps. It allows you to know exactly what format to expect and how to handle it.
+
+72. What techniques can be used to enforce structured output format from an LLM?
+72. You can use examples, templates, or schemas to enforce format. This involves explicitly telling the model the exact format you want, such as specifying field names and structures, and can include instructions like "return only the JSON, no explanation" to ensure you receive only the requested format without additional commentary.
+
+73. What are some practical use cases where structured output is particularly beneficial?
+73. Structured output is beneficial for test cases, documentation, data extraction, and code generation. It's useful anytime you need a specific format, are generating multiple similar items, or want to avoid manually reformatting responses. For example, when asking for code snippets, structured output allows you to simply copy and paste without reformatting.
+
+74. How does structured output help with error handling in AI applications?
+74. Since LLMs don't fail like traditional code (they hallucinate or send wrong output instead of error codes), structured output provides a way to detect failures. By expecting an exact format, especially in typed languages like TypeScript, you can detect when something went wrong if the output doesn't match the expected structure, enabling better error handling in AI applications.
+
+75. Given the following prompt structure, what would the LLM return?
+
+Extract the meeting details from this email.
+Format like this:
+Date: [date]
+Time: [time]
+Location: [location]
+Topic: [topic]
+
+Email: Let's meet tomorrow at 2 p.m. in conference room B to discuss the Q4 budget
+
+75. The LLM would return the extracted information in the specified format:
+Date: tomorrow
+Time: 2 p.m.
+Location: conference room B
+Topic: Q4 budget
+
+This demonstrates how structured output can extract specific information from unstructured text and format it consistently.
