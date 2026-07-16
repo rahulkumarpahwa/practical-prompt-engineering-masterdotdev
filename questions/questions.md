@@ -279,3 +279,18 @@ This demonstrates how structured output can extract specific information from un
 
 85. What is the difference between zero-shot chain-of-thought and few-shot chain-of-thought prompting?
 85. Zero-shot chain-of-thought simply adds phrases like "let's think step-by-step" to the prompt without examples. Few-shot chain-of-thought includes carefully crafted, task-specific examples with reasoning steps. While few-shot chain-of-thought does perform better, zero-shot chain-of-thought still provides enormous accuracy gains without requiring the time and effort to create quality examples.
+
+86. What is the purpose of adding "let's think step-by-step" to a chain-of-thought prompt?
+86. Adding "let's think step-by-step" primes the model to use a specific chain-of-thought technique and ensures it talks through exactly what it's doing, providing a systematic breakdown of the problem-solving process. This is valuable even when AI tools already show some internal chain-of-thought processing.
+
+87. What are the five main steps for building an export/import system for prompts stored in local storage?
+87. Step 1: Analyze what data needs to be exported (all prompts with metadata). Step 2: Design the export JSON schema including version number, export timestamp, statistics, and prompts array. Step 3: Create the export function that gathers data from local storage, validates integrity, creates a blob, and triggers download. Step 4: Create the import function that reads uploaded files, validates JSON structure and version, checks for duplicate IDs, and merges or replaces data. Step 5: Add error recovery with backup of existing data, rollback on failure, and detailed error messages.
+
+88. When diagnosing yellowing plant leaves using chain-of-thought prompting, what are the four main systematic steps the model identifies?
+88. Step 1: Check watering issues (both overwatering and underwatering). Step 2: Examine the light conditions. Step 3: Assess nutrient deficiency. Step 4: Look for other clues and quick diagnostic questions.
+
+89. What key elements should be included in an export JSON schema for a prompt library system?
+89. The export JSON schema should include: a version number for future compatibility, an export timestamp, statistics (such as total prompts, average rating, most used model), and a complete prompts array containing individual prompt data with IDs, titles, content, creation timestamps, ratings, metadata, notes, and note IDs.
+
+90. How can you improve debugging when an import functionality fails with an "unsupported file type" error?
+90. You can improve debugging by providing the actual error message, explaining the failure in detail, adding the phrase "let's think step-by-step" to prompt systematic analysis, and ideally including a sample of the JSON being imported as a shot (example) so the model can see exactly what structure caused the failure. Making the parser more flexible to accept legacy formats (arrays or objects without type specifications) can also help.

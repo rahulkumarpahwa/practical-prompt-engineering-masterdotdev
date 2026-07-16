@@ -1,0 +1,32 @@
+My plants leaves are turning yellow. What could be wrong? 
+let's diagnose step by step.
+
+
+-----------------
+Response Claude Sonnet 5
+
+Yellow leaves are one of the most common plant complaints, and they can come from several different causes — let's narrow it down.
+
+**Step 1: Where on the plant is the yellowing?**
+- **Older/lower leaves only** → often normal aging, or nitrogen deficiency, or the plant naturally shedding leaves it no longer needs
+- **New growth/upper leaves** → often points to iron, manganese, or other micronutrient deficiency, or a pH problem blocking nutrient uptake
+- **Whole plant, all at once** → usually overwatering, root rot, or a sudden environmental shock
+
+**Step 2: What does the yellowing pattern look like?**
+- **Solid yellow, leaf drops soon after** → classic overwatering sign
+- **Yellow with green veins still visible** → nutrient deficiency (often iron or magnesium)
+- **Yellow with brown crispy edges/tips** → underwatering, low humidity, or salt/fertilizer buildup
+- **Yellow spots or blotches, maybe with dark centers** → possible fungal or bacterial disease
+
+**Step 3: Check the roots and soil**
+- Gently pull the plant from its pot (or check if the soil stays soggy for days) — mushy, dark, or smelly roots = root rot from overwatering
+- Dry, pulling-away-from-the-pot soil = underwatering
+- White crust on soil surface = mineral/fertilizer buildup
+
+**Step 4: Think about recent changes**
+- New pot, new location, recent repotting, temperature swings, or a change in watering schedule can all trigger yellowing as a stress response
+
+To help me get more specific — can you tell me:
+1. What kind of plant is it?
+2. Is it the older leaves, new leaves, or all of them turning yellow?
+3. What's your watering routine been like lately?
