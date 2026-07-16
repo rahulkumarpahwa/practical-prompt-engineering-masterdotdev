@@ -309,3 +309,18 @@ This demonstrates how structured output can extract specific information from un
 
 95. How do LLM failures differ from traditional production code failures, and why does this matter for prompt versioning?
 95. LLMs typically don't error out like traditional code. Instead, they fail by producing improper responses such as hallucinations or degraded output quality. This makes it crucial to save and measure responses, outputs, and prompts in creative ways, as failures may not be immediately obvious without proper tracking.
+
+96. What is an example of emotional stimuli in prompt engineering?
+96. Emotional stimuli in prompt engineering refers to adding phrases like "this is important to my career" or "you'd better be sure" to prompts. These emotional phrases are intended to influence how the model processes and responds to the main request.
+
+97. In the research paper on emotional prompts, which words received the most attention in the origin prompt "Determine whether a movie review is positive or negative"?
+97. The words "positive," "negative," and "review" received the most attention from the model in the origin prompt, as indicated by darker coloring in the attention visualization.
+
+98. What unexpected finding did the research reveal about where models focus attention when emotional prompts are added?
+98. The research found that the emotional prompt phrases themselves received very little attention from the model. However, adding emotional prompts caused the model to pay significantly more attention to the important words in the main prompt (like "positive," "negative," "review") compared to prompts without emotional stimuli.
+
+99. According to the research on emotional stimuli, did aggressive phrasing like "you'd better be sure" negatively impact model performance?
+99. No, aggressive phrasing did not negatively impact performance. Even when being somewhat aggressive with the model, the research showed increased attention being paid to important tokens in the prompt, which theoretically should lead to better results.
+
+100. What is the theoretical explanation for why emotional prompts might improve model accuracy?
+100. Emotional prompts cause the model to pay more attention to the important tokens in the main prompt. Since large language models are pattern predictors that rely on attention mechanisms, paying more attention to relevant tokens should lead to more accurate predictions and better results.
