@@ -264,3 +264,18 @@ This demonstrates how structured output can extract specific information from un
 
 80. What color-coding scheme is used to visually display token estimation confidence levels in the HTML component?
 80. Green for high confidence, yellow for medium confidence, and red for low confidence.
+
+81. What is chain-of-thought prompting in the context of large language models?
+81. Chain-of-thought prompting is asking the model to show its reasoning step-by-step. It breaks complex problems into intermediate steps, similar to how humans think through problems by breaking them down into smaller pieces.
+
+82. According to research on zero-shot chain-of-thought prompting, what happens to accuracy when adding "let's think step-by-step" to a prompt on multi-arithmetic tasks?
+82. In the study "Large Language Models are Zero-Shot Reasoners," accuracy improved dramatically from 17.7% with a standard zero-shot prompt to 78.7% when "let's think step-by-step" was added to the prompt.
+
+83. Why do large language models struggle with mathematical and arithmetic tasks despite being able to write complex code?
+83. LLMs are not calculators - they are pattern predictors and token predictors. When asked "what is 2 + 2," the model predicts the next most likely token (4) rather than performing a calculation. They struggle with complex arithmetic because they can only reason while generating output, not beforehand like humans do.
+
+84. How does the effectiveness of zero-shot chain-of-thought prompting change with model size?
+84. On smaller models, zero-shot and zero-shot chain-of-thought have about the same accuracy. As models get larger, both improve, but zero-shot chain-of-thought accuracy increases exponentially and far more substantially than standard zero-shot prompting, suggesting it will become even more effective as models continue to grow.
+
+85. What is the difference between zero-shot chain-of-thought and few-shot chain-of-thought prompting?
+85. Zero-shot chain-of-thought simply adds phrases like "let's think step-by-step" to the prompt without examples. Few-shot chain-of-thought includes carefully crafted, task-specific examples with reasoning steps. While few-shot chain-of-thought does perform better, zero-shot chain-of-thought still provides enormous accuracy gains without requiring the time and effort to create quality examples.
