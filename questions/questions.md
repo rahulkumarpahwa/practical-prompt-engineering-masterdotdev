@@ -324,3 +324,18 @@ This demonstrates how structured output can extract specific information from un
 
 100. What is the theoretical explanation for why emotional prompts might improve model accuracy?
 100. Emotional prompts cause the model to pay more attention to the important tokens in the main prompt. Since large language models are pattern predictors that rely on attention mechanisms, paying more attention to relevant tokens should lead to more accurate predictions and better results.
+
+101. What are delimiters in the context of prompt engineering and what are some examples?
+101. Delimiters are boundaries used to separate sections of text in prompts. Examples include commas, periods, triple quotes, dashes, XML tags, and markdown formatting. They work similarly to how they're used in code (like separating array items with commas) and help structure prompts for better LLM comprehension.
+
+102. Why are Large Language Models particularly effective at understanding delimiters and XML tags?
+102. LLMs are trained on large amounts of internet data that heavily utilizes delimiters, including code (with curly braces, brackets, commas), documentation, and readme files (with markdown formatting). Some models like Anthropic's Claude are specifically trained on XML tags, making them exceptionally good at understanding this structure.
+
+103. When should you use delimiters and XML tags in your prompts?
+103. You should use delimiters and XML tags anytime you have a complex prompt. They help break down large chunks of information into easy-to-understand sections, provide visual hierarchy for both humans and LLMs, and make it easier to distinguish between different parts like input, output, and examples.
+
+104. What is the importance of semantic naming when using XML tags or delimiters in prompts?
+104. Semantic naming makes prompts easier to understand for both the developer and the LLM. Instead of using generic names like 'X', use descriptive names like 'user_schema', 'requirements', 'constraints', or 'examples'. This clarity helps treat LLMs like junior engineers and leads to better output quality.
+
+105. How does nesting work with delimiters and XML tags in prompt engineering?
+105. Delimiters support nesting and attributes for complex data organization. For example, you can have a parent tag like <research_area> that contains nested tags like <topic> and <questions>. This creates clear hierarchies, such as distinguishing between example one, two, and three, making it obvious where each section starts and ends.

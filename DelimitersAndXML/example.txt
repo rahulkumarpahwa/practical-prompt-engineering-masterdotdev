@@ -40,3 +40,17 @@ Then synthesize this into:
 -------------------------------
 
 Response By claude Sonnet 5:
+
+I'll research this systematically across all three areas. Let me start gathering data.Now let's look at collaboration features — how Postman and Insomnia handle team sharing and permissions.Good. Now Insomnia sharing model, then technical implementation details for prompt tools (databases, search, export/import, rate limiting).Now let's dig into technical implementation — databases and engineering blogs of these tools.Excellent, deep technical detail here. Now search-at-scale approaches (Elasticsearch/Algolia/pgvector) and export/import formats, and rate limiting/abuse prevention.Found solid Postman search architecture detail. Now let's look at export/import formats and rate limiting / abuse prevention approaches for API/dev tools.Now let's cover rate limiting and abuse prevention approaches for API/developer platforms.A few things worth calling out that could directly change your near-term roadmap:
+
+1. **Label-based deployment beats branching as your first investment.** Nearly every tool that's considered "production-ready" separates version numbering from deployment labels (`prod`/`staging`). It's cheap to build and it's the exact gap that makes tools feel like "a Google Doc with version numbers."
+
+2. **Langfuse's Postgres→ClickHouse migration is your best case study**, and the actionable lesson isn't "use ClickHouse" — it's "keep your control-plane data (prompts/versions/permissions) architecturally separate from telemetry data (invocation logs) from day one," even if both start in Postgres. Retrofitting that separation later is what actually cost them.
+
+3. **Humanloop shutting down in Sept 2025** is a real argument for treating your export format as a public, versioned contract from the start rather than an afterthought — it's the credible answer to "what happens to our prompts if you disappear."
+
+4. **Postman vs. Insomnia is a genuine fork for your RBAC model**, not just a style choice: build in-app RBAC if you expect non-engineers editing prompts directly, or delegate to git hosts (Insomnia's approach) if your users are all engineers — a hybrid is common and probably right for you.
+
+5. On rate limiting, industry consensus has converged enough that it's not really a design debate anymore: token bucket for your SDK/API, sliding-window-counter for public endpoints, Redis + Lua for atomicity.
+
+The full report has the competitive matrix and MVP/near-term/future feature breakdown. Let me know if you want me to go deeper on any one area — e.g., sketching the actual Postgres schema for versions+labels, or a more detailed branching/merge data model if you decide that's worth the complexity sooner rather than later.
