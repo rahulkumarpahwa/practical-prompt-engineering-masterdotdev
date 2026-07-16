@@ -294,3 +294,18 @@ This demonstrates how structured output can extract specific information from un
 
 90. How can you improve debugging when an import functionality fails with an "unsupported file type" error?
 90. You can improve debugging by providing the actual error message, explaining the failure in detail, adding the phrase "let's think step-by-step" to prompt systematic analysis, and ideally including a sample of the JSON being imported as a shot (example) so the model can see exactly what structure caused the failure. Making the parser more flexible to accept legacy formats (arrays or objects without type specifications) can also help.
+
+91. What are three key benefits of maintaining a Prompt Library for working with LLMs?
+91. A Prompt Library allows you to: 1) Version and track your prompts over time, 2) Test prompts on different models and compare their effectiveness, and 3) Keep detailed notes and documentation on prompting techniques as new models are released.
+
+92. What specific information should be tracked when documenting prompts in a Prompt Library?
+92. You should track: which model was used, when it was used, why it was used, how it was used, the number of shots used in few-shot prompting, potential token usage, and both successful and unsuccessful prompting attempts to maintain unbiased data.
+
+93. How can a Prompt Library help when migrating from a deprecated model to a new model in an AI application?
+93. By maintaining historical data on how different prompting techniques performed across models, you can analyze which techniques (such as chain-of-thought reasoning versus one-shot prompting) work best with the new model and adjust your prompting strategy accordingly before migration.
+
+94. Why is it important to track both best and worst prompts in a Prompt Library?
+94. Tracking both best and worst prompts provides unbiased data that helps identify patterns in model behavior. When new models are released, you can test both types of prompts to determine if techniques that previously failed now work better, or if successful techniques remain effective.
+
+95. How do LLM failures differ from traditional production code failures, and why does this matter for prompt versioning?
+95. LLMs typically don't error out like traditional code. Instead, they fail by producing improper responses such as hallucinations or degraded output quality. This makes it crucial to save and measure responses, outputs, and prompts in creative ways, as failures may not be immediately obvious without proper tracking.
