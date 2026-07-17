@@ -339,3 +339,18 @@ This demonstrates how structured output can extract specific information from un
 
 105. How does nesting work with delimiters and XML tags in prompt engineering?
 105. Delimiters support nesting and attributes for complex data organization. For example, you can have a parent tag like <research_area> that contains nested tags like <topic> and <questions>. This creates clear hierarchies, such as distinguishing between example one, two, and three, making it obvious where each section starts and ends.
+
+106. What is the actual purpose of using personas in LLM prompts, and what common misconception exists about them?
+106. Personas give the model a perspective by directing it towards specific areas of its training data, rather than making the model smarter. The common misconception is that adding detailed personas makes the model more intelligent, when in reality personas just activate relevant knowledge, vocabulary, and neurons associated with that role or expertise area.
+
+107. What are the three main areas where personas are most effective in LLM prompting?
+107. Personas work mainly for expertise, tone, and style. They help activate relevant knowledge and vocabulary related to specific domains, adjust the communication style and formality level, and provide different perspectives based on the role specified.
+
+108. How would the output differ between using "you are a UX/UI designer" versus "you are a security engineer" as a persona for reviewing the same code?
+108. A UX/UI designer persona would focus on considerations like accessibility, color blindness, button placement, colors, sizes, and shapes that improve user interaction. A security engineer persona would focus on vulnerabilities, outdated npm packages, and security concerns in the code.
+
+109. What happens when you add too much detail to a persona prompt in an LLM conversation?
+109. Adding too much detail to a persona can make the model too rigid and restrict its responses. Overly detailed personas (like specifying years of experience, multiple companies, specific methodologies) constrain the model's ability to be generally helpful rather than improving its output quality.
+
+110. According to research, what specific aspects of model output are primarily affected by personas?
+110. Personas primarily affect vocabulary selection, response structure, error checking behavior, confidence in assertions, and the overall tone of the response. They don't enhance the model's underlying knowledge but rather guide how that knowledge is presented and applied.
