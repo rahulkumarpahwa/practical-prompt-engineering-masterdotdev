@@ -1,0 +1,95 @@
+{
+  "site": {
+    "title": "Practical Prompt Engineering",
+    "subtitle": "A local-first playground for learning and experimenting with prompt engineering techniques.",
+    "localStorageNote": "Every demo on this site stores data only in your browser's localStorage. Nothing is sent to a server or the cloud. Clearing your browser storage will permanently delete saved prompts, so use Export (where available) to back up your work."
+  },
+  "sections": [
+    {
+      "name": "Zero-Shot Prompt",
+      "slug": "zero-shot-prompt",
+      "path": "ZeroShortPrompt",
+      "type": "playground",
+      "page": true,
+      "summary": "Baseline prompt library: author prompts, save them locally, render them as cards, and delete them.",
+      "technique": "Zero-shot prompting asks the model to perform a task without any examples. This folder is the simplest save/browse experience used as the reference baseline."
+    },
+    {
+      "name": "One-Shot Prompt",
+      "slug": "one-shot-prompt",
+      "path": "OneShortPrompt",
+      "type": "playground",
+      "page": true,
+      "summary": "Single-example prompting variation explored through a small UI.",
+      "technique": "One-shot prompting provides a single example before the real task, guiding the model's output format and style."
+    },
+    {
+      "name": "Few-Shot Prompt",
+      "slug": "few-shot-prompt",
+      "path": "FewShortPrompt",
+      "type": "playground",
+      "page": true,
+      "summary": "Few-shot prompting variation (multiple examples) in a UI-friendly way.",
+      "technique": "Few-shot prompting supplies several examples to establish a pattern the model can generalize from."
+    },
+    {
+      "name": "Standard Prompt",
+      "slug": "standard-prompt",
+      "path": "StandardPrompt",
+      "type": "playground",
+      "page": true,
+      "file": "StandardPrompt.html",
+      "summary": "A direct question or instruction — the simplest, foundational form of prompting.",
+      "technique": "A standard prompt is a direct question or instruction to an AI. It is the foundation that all other prompting techniques build upon."
+    },
+    {
+      "name": "Structured Output",
+      "slug": "structured-output",
+      "path": "StructuredOutput",
+      "type": "playground",
+      "page": true,
+      "summary": "Prompt library with metadata tracking, token estimation, confidence coloring, and timestamps.",
+      "technique": "Structured output prompting asks the model to return results in a fixed schema (JSON, etc.) so responses are machine-parseable."
+    },
+    {
+      "name": "Zero-Shot Chain-of-Thought",
+      "slug": "zero-shot-cot",
+      "path": "ZeroShortCOTPrompt",
+      "type": "playground",
+      "page": true,
+      "summary": "Chain-of-thought exploration plus import/export conflict-resolution implementation notes.",
+      "technique": "Zero-shot CoT elicits step-by-step reasoning (e.g. 'think step by step') without providing worked examples."
+    },
+    {
+      "name": "Personas",
+      "slug": "personas",
+      "path": "Personas",
+      "type": "playground",
+      "page": true,
+      "summary": "Persona-driven prompting (tone/role shaping) with technical and UX specs.",
+      "technique": "Persona prompting assigns the model a role or identity to shape tone, expertise, and response style."
+    },
+    {
+      "name": "Delimiters & XML",
+      "slug": "delimiters-and-xml",
+      "path": "DelimitersAndXML",
+      "type": "docs",
+      "page": false,
+      "docPage": true,
+      "file": "DelimitersAndXML/prompt-library-market-research.md",
+      "summary": "Prompt organization, delimiters/XML tagging, and prompt-management architecture research.",
+      "technique": "Delimiters and structured tags separate instructions from content, improving reliability and reducing prompt-injection risk."
+    },
+    {
+      "name": "Emotional Prompt",
+      "slug": "emotional-prompt",
+      "path": "EmotionalPrompt",
+      "type": "docs",
+      "page": false,
+      "docPage": true,
+      "file": "EmotionalPrompt",
+      "summary": "Emotional prompting example and screenshot.",
+      "technique": "Emotional prompting adds affective language ('this is important for my career') to nudge more careful model responses."
+    }
+  ]
+}

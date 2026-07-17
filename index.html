@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practical Prompt Engineering Playground</title>
+  <meta
+    name="description"
+    content="An interactive prompt engineering library with explainers, comparisons, original prompt artifacts, and embedded playgrounds."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="nav shell" aria-label="Primary">
+        <a class="brand" href="#top" aria-label="Prompt Engineering Playground home">
+          <span class="brand-mark">PE</span>
+          <span>
+            <strong>Prompt Engineering</strong>
+            <small>Interactive library</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu" id="navMenu">
+          <a href="#playgrounds">Playgrounds</a>
+          <a href="#search">Search</a>
+          <a href="#categories">Categories</a>
+          <a href="#featured">Featured</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="#comparison">Compare</a>
+          <a href="#about">About</a>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">
+            <span class="theme-toggle-label">Theme</span>
+            <span class="theme-toggle-value" id="themeToggleValue">Auto</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero shell observed-section" id="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Interactive Prompt Engineering Library</p>
+          <h1>Practical Prompt Engineering Playground</h1>
+          <p class="hero-subtitle">
+            Learn every prompting technique with interactive examples. Explore the original prompt
+            artifacts in this repo, compare methods side by side, and jump straight into the
+            existing playgrounds without losing the underlying functionality.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#playgrounds">Explore Playgrounds</a>
+            <a class="button button-secondary" href="#roadmap">Start Learning</a>
+          </div>
+
+          <ul class="hero-stats" id="heroStats" aria-label="Library statistics"></ul>
+        </div>
+
+        <div class="hero-panel reveal">
+          <div class="glass-card hero-card">
+            <div class="hero-card-head">
+              <span class="status-dot"></span>
+              <span>Repository driven</span>
+            </div>
+            <h2>What this site does</h2>
+            <ul class="hero-checks">
+              <li>Reads the repository structure and turns each technique into a learning card.</li>
+              <li>Shows the actual prompt files when they exist instead of inventing replacements.</li>
+              <li>Connects every documentation view back to the original browser playground.</li>
+            </ul>
+            <div class="hero-mini-grid" id="heroMiniGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="shell observed-section" id="playgrounds">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Prompt Engineering Playground</p>
+          <h2>Browse the complete technique library</h2>
+          <p>
+            Every card below is generated from the prompt folders already in this repository. Use
+            search, filters, and quick previews to find the right pattern before opening the
+            playground or deep-diving into the documentation view.
+          </p>
+        </div>
+      </section>
+
+      <section class="shell library-controls observed-section" id="search">
+        <div class="control-grid reveal">
+          <label class="search-field">
+            <span class="control-label">Search the library</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search by title, tag, description, prompt type, or model"
+              aria-label="Search techniques"
+            />
+          </label>
+
+          <label>
+            <span class="control-label">Difficulty</span>
+            <select id="difficultyFilter" aria-label="Filter by difficulty">
+              <option value="">All difficulties</option>
+            </select>
+          </label>
+
+          <label>
+            <span class="control-label">Model</span>
+            <select id="modelFilter" aria-label="Filter by model">
+              <option value="">All models</option>
+            </select>
+          </label>
+
+          <label>
+            <span class="control-label">Prompt category</span>
+            <select id="categoryFilter" aria-label="Filter by prompt category">
+              <option value="">All categories</option>
+            </select>
+          </label>
+
+          <label>
+            <span class="control-label">Technique</span>
+            <select id="techniqueFilter" aria-label="Filter by technique">
+              <option value="">All techniques</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="shell observed-section" id="categories">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Categories</p>
+          <h2>Technique families</h2>
+          <p>Use category clusters to move from foundational prompts to more structured patterns.</p>
+        </div>
+        <div class="category-strip reveal" id="categoryStrip" aria-label="Prompt categories"></div>
+      </section>
+
+      <section class="shell observed-section" id="featured">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Featured Prompt Types</p>
+          <h2>Start with the patterns that teach the core mental model fastest</h2>
+        </div>
+        <div class="featured-grid" id="featuredGrid"></div>
+      </section>
+
+      <section class="shell observed-section" id="roadmap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Learning Roadmap</p>
+          <h2>Follow a practical path from first prompts to advanced control</h2>
+        </div>
+        <ol class="roadmap reveal" id="roadmapList"></ol>
+      </section>
+
+      <section class="shell observed-section" id="promptCards">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Prompt Cards</p>
+          <h2>Interactive prompt library</h2>
+          <p id="resultsSummary">Loading techniques…</p>
+        </div>
+        <div class="cards-grid" id="cardsGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="shell observed-section" id="comparison">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Comparison Section</p>
+          <h2>Compare prompting techniques before you commit to one</h2>
+        </div>
+        <div class="comparison-wrap reveal">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Technique</th>
+                <th>Needs Examples</th>
+                <th>Reasoning</th>
+                <th>Best For</th>
+                <th>Output Quality</th>
+                <th>Difficulty</th>
+                <th>Token Cost</th>
+                <th>Speed</th>
+                <th>Reliability</th>
+              </tr>
+            </thead>
+            <tbody id="comparisonBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="shell about-grid observed-section" id="about">
+        <div class="section-heading reveal">
+          <p class="eyebrow">About</p>
+          <h2>Built like a developer documentation portal</h2>
+          <p>
+            This site keeps the project local-first and framework-free. The homepage acts like a
+            docs gateway, while each technique detail view explains what the prompt does, why it
+            works, how to structure it, and where the original repo artifact lives.
+          </p>
+        </div>
+        <div class="about-panels">
+          <article class="glass-card reveal">
+            <h3>Trusted knowledge lens</h3>
+            <p>
+              The educational copy is original, but it was shaped using prompt engineering best
+              practices from official OpenAI and Anthropic guidance plus foundational reasoning
+              papers.
+            </p>
+            <ul class="source-list" id="sourceList"></ul>
+          </article>
+          <article class="glass-card reveal">
+            <h3>Performance and accessibility</h3>
+            <p>
+              The interface uses plain HTML, CSS, and vanilla JavaScript only, with keyboard-first
+              controls, lazy detail rendering, reduced-motion support, and a theme system that
+              respects both system preference and saved user choice.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-layout">
+        <div>
+          <strong>Practical Prompt Engineering Playground</strong>
+          <p>
+            Learn, inspect, compare, and launch the existing prompt playgrounds from one connected
+            learning surface.
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="#hero">Top</a>
+          <a href="#playgrounds">Library</a>
+          <a href="#comparison">Comparison</a>
+          <a href="#about">About</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <aside
+    class="detail-panel"
+    id="detailPanel"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="detailTitle"
+  >
+    <div class="detail-backdrop" id="detailBackdrop"></div>
+    <div class="detail-dialog">
+      <button class="detail-close" id="detailClose" type="button" aria-label="Close documentation panel">
+        Close
+      </button>
+
+      <div class="detail-body" id="detailBody">
+        <div class="detail-header">
+          <p class="eyebrow" id="detailCategory"></p>
+          <h2 id="detailTitle">Technique</h2>
+          <p class="detail-summary" id="detailSummary"></p>
+          <div class="detail-meta" id="detailMeta"></div>
+        </div>
+
+        <nav class="detail-nav" aria-label="Technique sections">
+          <a href="#detail-overview">What is this Prompt?</a>
+          <a href="#detail-utility">Why is it useful?</a>
+          <a href="#detail-how">How does it work?</a>
+          <a href="#detail-structure">Prompt Structure</a>
+          <a href="#detail-prompt">Prompt Used</a>
+          <a href="#detail-generated">Generated By</a>
+          <a href="#detail-playground">Playground</a>
+          <a href="#detail-related">Related Prompt Types</a>
+        </nav>
+
+        <section class="detail-section" id="detail-overview">
+          <h3>What is this Prompt?</h3>
+          <p id="detailDefinition"></p>
+        </section>
+
+        <section class="detail-section" id="detail-utility">
+          <h3>Why is it useful?</h3>
+          <div class="detail-columns">
+            <article class="glass-card">
+              <h4>Advantages</h4>
+              <ul id="detailAdvantages"></ul>
+            </article>
+            <article class="glass-card">
+              <h4>Limitations</h4>
+              <ul id="detailLimitations"></ul>
+            </article>
+            <article class="glass-card">
+              <h4>Common Mistakes</h4>
+              <ul id="detailMistakes"></ul>
+            </article>
+            <article class="glass-card">
+              <h4>When Not to Use</h4>
+              <ul id="detailWhenNot"></ul>
+            </article>
+          </div>
+          <div class="detail-columns two-up">
+            <article class="glass-card">
+              <h4>Real-world Use Cases</h4>
+              <ul id="detailUseCases"></ul>
+            </article>
+            <article class="glass-card">
+              <h4>Industry Examples</h4>
+              <ul id="detailExamples"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="detail-section" id="detail-how">
+          <h3>How does it work?</h3>
+          <ol class="process-steps" id="detailProcess"></ol>
+          <div class="diagram" id="detailDiagram" aria-label="Technique flow diagram"></div>
+        </section>
+
+        <section class="detail-section" id="detail-structure">
+          <h3>Prompt Structure</h3>
+          <div class="anatomy-grid" id="detailAnatomy"></div>
+        </section>
+
+        <section class="detail-section" id="detail-prompt">
+          <div class="section-head-inline">
+            <div>
+              <h3>Prompt Used</h3>
+              <p id="detailPromptNote"></p>
+            </div>
+            <div class="code-actions">
+              <button class="button button-ghost" id="copyPromptButton" type="button">Copy Prompt</button>
+              <button class="button button-ghost" id="expandPromptButton" type="button">Expand</button>
+            </div>
+          </div>
+          <div class="code-meta" id="detailCodeMeta"></div>
+          <div class="code-viewer collapsed" id="codeViewer">
+            <div class="code-lines" id="codeLines"></div>
+          </div>
+        </section>
+
+        <section class="detail-section" id="detail-generated">
+          <h3>Generated By</h3>
+          <div class="generated-grid">
+            <article class="glass-card">
+              <h4>Model name</h4>
+              <p id="detailModel"></p>
+            </article>
+            <article class="glass-card">
+              <h4>Prompt version</h4>
+              <p id="detailVersion"></p>
+            </article>
+            <article class="glass-card">
+              <h4>Created date</h4>
+              <p id="detailDate"></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="detail-section" id="detail-playground">
+          <div class="section-head-inline">
+            <div>
+              <h3>Playground</h3>
+              <p>Existing repo assets are embedded or linked here without recreating the original logic.</p>
+            </div>
+            <a class="button button-secondary" id="openPlaygroundLink" target="_blank" rel="noopener">Open Playground</a>
+          </div>
+          <div class="playground-stage" id="playgroundStage"></div>
+        </section>
+
+        <section class="detail-section" id="detail-related">
+          <h3>Related Prompt Types</h3>
+          <div class="related-grid" id="detailRelated"></div>
+        </section>
+      </div>
+    </div>
+  </aside>
+
+  <template id="emptyStateTemplate">
+    <article class="empty-state">
+      <h3>No techniques match the current filters</h3>
+      <p>Try removing one or two filters, or search for a broader concept like “reasoning” or “structure”.</p>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
